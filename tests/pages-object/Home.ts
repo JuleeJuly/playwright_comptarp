@@ -47,6 +47,7 @@ export class Home{
         await this.page.goto(this.url);
         this.checkTitle();
     }
+    /*_________SUN_________*/
     async checkSun(nb : number){
         await expect(this.totalSun).toBeVisible();
         await expect(this.totalSun).toHaveText(nb.toString() + " Soleil(s)");
@@ -61,4 +62,25 @@ export class Home{
         await expect(this.buttonDeleteSun).toBeVisible();
         await this.buttonDeleteSun.click();
     }
+    /*_________PRESENCE_________*/
+    async checkPresentColor(colorToBe: string){
+        await expect(this.contentPresent).toBeVisible();
+        const color = await this.contentPresent.evaluate(el => getComputedStyle(el).backgroundColor);
+        await expect(color).toBe(colorToBe);
+    }
+    async checkPresent(){
+        await expect(this.contentPresent).toBeVisible();
+        await expect(this.buttonPresent).toBeVisible();
+        await this.buttonPresent.click();
+    }
+    /*_________OP_________*/
+    async checkOperation(text: string){
+        await expect(this.operation).toBeVisible();
+        await expect(this.operation).toHaveValue(text);
+    }
+    async modifyOperation(text: string){
+        await this.operation.fill(text);
+    }
+
+    /*_________TABLEAU PRESENCE_________*/
 }
